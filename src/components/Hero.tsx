@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, ArrowDown } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowDown, Download } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const Hero = () => {
   const scrollToSection = (sectionId: string) => {
@@ -15,6 +16,13 @@ const Hero = () => {
       
       <div className="container mx-auto px-4 py-20">
         <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in-up">
+          <div className="flex justify-center mb-8 animate-fade-in">
+            <Avatar className="h-40 w-40 border-4 border-primary shadow-glow">
+              <AvatarImage src="https://avatars.githubusercontent.com/u/97047681?v=4" alt="Ashifur Nahid" />
+              <AvatarFallback>AN</AvatarFallback>
+            </Avatar>
+          </div>
+          
           <div className="space-y-4">
             <p className="text-lg text-muted-foreground animate-fade-in">
               Hi there, I'm
@@ -46,6 +54,16 @@ const Hero = () => {
               onClick={() => scrollToSection("#contact")}
             >
               Get In Touch
+            </Button>
+            <Button
+              size="lg"
+              variant="secondary"
+              asChild
+            >
+              <a href="/resume.pdf" download className="gap-2">
+                <Download className="h-5 w-5" />
+                Download Resume
+              </a>
             </Button>
           </div>
 

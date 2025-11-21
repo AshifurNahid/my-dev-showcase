@@ -14,6 +14,7 @@ interface Repo {
   stargazers_count: number;
   forks_count: number;
   language: string;
+  full_name: string;
 }
 
 const Projects = () => {
@@ -65,68 +66,78 @@ const Projects = () => {
               {repos.map((repo, index) => (
                 <Card
                   key={repo.id}
-                  className="p-6 space-y-4 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col animate-fade-in-up"
+                  className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col animate-fade-in-up"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <div className="space-y-2 flex-1">
-                    <h3 className="text-xl font-semibold line-clamp-1">{repo.name}</h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2">
-                      {repo.description || "No description available"}
-                    </p>
+                  <div className="aspect-video bg-gradient-to-br from-primary/20 to-primary/5 flex items-center justify-center border-b">
+                    <img
+                      src={`https://opengraph.githubassets.com/1/${repo.full_name}`}
+                      alt={repo.name}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
-
-                  {repo.topics && repo.topics.length > 0 && (
-                    <div className="flex flex-wrap gap-2">
-                      {repo.topics.slice(0, 3).map((topic) => (
-                        <Badge key={topic} variant="secondary" className="text-xs">
-                          {topic}
-                        </Badge>
-                      ))}
+                  
+                  <div className="p-6 space-y-4 flex-1 flex flex-col">
+                    <div className="space-y-2 flex-1">
+                      <h3 className="text-xl font-semibold line-clamp-1">{repo.name}</h3>
+                      <p className="text-sm text-muted-foreground line-clamp-2">
+                        {repo.description || "No description available"}
+                      </p>
                     </div>
-                  )}
 
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground pt-2 border-t">
-                    {repo.language && (
-                      <span className="flex items-center gap-1">
-                        <div className="w-3 h-3 rounded-full bg-primary"></div>
-                        {repo.language}
-                      </span>
+                    {repo.topics && repo.topics.length > 0 && (
+                      <div className="flex flex-wrap gap-2">
+                        {repo.topics.slice(0, 3).map((topic) => (
+                          <Badge key={topic} variant="secondary" className="text-xs">
+                            {topic}
+                          </Badge>
+                        ))}
+                      </div>
                     )}
-                    <span className="flex items-center gap-1">
-                      <Star className="h-4 w-4" />
-                      {repo.stargazers_count}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <GitFork className="h-4 w-4" />
-                      {repo.forks_count}
-                    </span>
-                  </div>
 
-                  <div className="flex gap-2">
-                    <Button asChild variant="outline" size="sm" className="flex-1">
-                      <a
-                        href={repo.html_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="gap-2"
-                      >
-                        <Github className="h-4 w-4" />
-                        Code
-                      </a>
-                    </Button>
-                    {repo.homepage && (
-                      <Button asChild size="sm" className="flex-1">
+                    <div className="flex items-center gap-4 text-sm text-muted-foreground pt-2 border-t">
+                      {repo.language && (
+                        <span className="flex items-center gap-1">
+                          <div className="w-3 h-3 rounded-full bg-primary"></div>
+                          {repo.language}
+                        </span>
+                      )}
+                      <span className="flex items-center gap-1">
+                        <Star className="h-4 w-4" />
+                        {repo.stargazers_count}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <GitFork className="h-4 w-4" />
+                        {repo.forks_count}
+                      </span>
+                    </div>
+
+                    <div className="flex gap-2">
+                      <Button asChild variant="outline" size="sm" className="flex-1">
                         <a
-                          href={repo.homepage}
+                          href={repo.html_url}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="gap-2"
                         >
-                          <ExternalLink className="h-4 w-4" />
-                          Live
+                          <Github className="h-4 w-4" />
+                          Code
                         </a>
                       </Button>
-                    )}
+                      {repo.homepage && (
+                        <Button asChild size="sm" className="flex-1">
+                          <a
+                            href={repo.homepage}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="gap-2"
+                          >
+                            <ExternalLink className="h-4 w-4" />
+                            Live
+                          </a>
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </Card>
               ))}
