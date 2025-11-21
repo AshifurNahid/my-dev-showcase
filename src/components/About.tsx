@@ -1,7 +1,10 @@
 import { Code2, Sparkles, Target } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const About = () => {
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  
   const highlights = [
     {
       icon: Code2,
@@ -24,7 +27,12 @@ const About = () => {
     <section id="about" className="py-24 bg-muted/50">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto space-y-12">
-          <div className="text-center space-y-4 animate-fade-in">
+          <div 
+            ref={elementRef}
+            className={`text-center space-y-4 transition-all duration-700 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
             <h2 className="text-4xl md:text-5xl font-bold">
               About <span className="text-gradient-primary">Me</span>
             </h2>
@@ -38,8 +46,12 @@ const About = () => {
             {highlights.map((item, index) => (
               <Card
                 key={index}
-                className="p-6 space-y-4 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className={`p-6 space-y-4 hover:shadow-lg transition-all duration-500 hover:-translate-y-1 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+                style={{
+                  transitionDelay: isVisible ? `${index * 100}ms` : '0ms'
+                }}
               >
                 <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                   <item.icon className="h-6 w-6 text-primary" />
