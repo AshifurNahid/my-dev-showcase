@@ -7,8 +7,11 @@ import {
   Server,
   Smartphone,
 } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Skills = () => {
+  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  
   const skillCategories = [
     {
       icon: Code2,
@@ -52,7 +55,12 @@ const Skills = () => {
     <section id="skills" className="py-24 bg-muted/50">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto space-y-12">
-          <div className="text-center space-y-4 animate-fade-in">
+          <div 
+            ref={elementRef}
+            className={`text-center space-y-4 transition-all duration-700 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
             <h2 className="text-4xl md:text-5xl font-bold">
               Skills & <span className="text-gradient-primary">Expertise</span>
             </h2>
@@ -65,8 +73,12 @@ const Skills = () => {
             {skillCategories.map((category, index) => (
               <Card
                 key={index}
-                className="p-6 space-y-4 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in-up"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className={`p-6 space-y-4 hover:shadow-lg transition-all duration-500 hover:-translate-y-1 ${
+                  isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+                }`}
+                style={{
+                  transitionDelay: isVisible ? `${index * 100}ms` : '0ms'
+                }}
               >
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">

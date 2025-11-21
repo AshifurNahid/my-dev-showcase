@@ -25,6 +25,7 @@ const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
     { href: "#projects", label: "Projects" },
     { href: "#skills", label: "Skills" },
     { href: "#experience", label: "Experience" },
+    { href: "#blog", label: "Blog" },
     { href: "#contact", label: "Contact" },
   ];
 

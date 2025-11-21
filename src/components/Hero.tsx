@@ -1,8 +1,11 @@
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, Mail, ArrowDown, Download } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useParallax } from "@/hooks/useScrollAnimation";
 
 const Hero = () => {
+  const scrollY = useParallax();
+  
   const scrollToSection = (sectionId: string) => {
     const element = document.querySelector(sectionId);
     if (element) {
@@ -12,10 +15,16 @@ const Hero = () => {
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-muted -z-10" />
+      <div 
+        className="absolute inset-0 bg-gradient-to-b from-background via-background to-muted -z-10"
+        style={{ transform: `translateY(${scrollY * 0.5}px)` }}
+      />
       
       <div className="container mx-auto px-4 py-20">
-        <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in-up">
+        <div 
+          className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in-up"
+          style={{ transform: `translateY(${scrollY * 0.2}px)` }}
+        >
           <div className="flex justify-center mb-8 animate-fade-in">
             <Avatar className="h-40 w-40 border-4 border-primary shadow-glow">
               <AvatarImage src="https://avatars.githubusercontent.com/u/97047681?v=4" alt="Ashifur Nahid" />
