@@ -99,17 +99,6 @@ const Skills = () => {
               </Card>
             ))}
           </div>
-
-          <Card className="p-8 bg-card mt-8">
-            <div className="text-center space-y-4">
-              <h3 className="text-2xl font-semibold">Always Learning</h3>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Technology evolves rapidly, and so do I. Currently exploring cloud-native architectures,
-                AI/ML integration, and advanced system design patterns to stay at the forefront
-                of software development.
-              </p>
-            </div>
-          </Card>
         </div>
       </div>
     </section>
