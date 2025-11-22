@@ -25,7 +25,9 @@ const Blog = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch("https://dev.to/api/articles?username=ashifurnahid&per_page=6");
+        const response = await fetch(
+          "https://dev.to/api/articles?username=ashifur_nahid_c0cbfcc7105&per_page=6"
+        );
         const data = await response.json();
         setArticles(data);
       } catch (error) {
@@ -163,7 +165,7 @@ const Blog = () => {
           <div className="text-center pt-8">
             <Button asChild variant="outline" size="lg">
               <a
-                href="https://dev.to/ashifurnahid"
+                href="https://dev.to/ashifur_nahid_c0cbfcc7105"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="gap-2"
