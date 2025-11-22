@@ -1,11 +1,14 @@
 import { Card } from "@/components/ui/card";
 import {
+  Activity,
+  BarChart3,
+  Clock3,
+  Cloud,
   Code2,
   Database,
-  Globe,
-  Wrench,
-  Server,
-  Smartphone,
+  HardDrive,
+  MessageSquare,
+  TestTube,
 } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
@@ -15,39 +18,57 @@ const Skills = () => {
   const skillCategories = [
     {
       icon: Code2,
-      title: "Languages",
-      skills: ["Java", "JavaScript", "TypeScript", "Python", "SQL"],
+      title: "Backend Development",
+      skills: ["Java", "C#", "F#", "Perl"],
       color: "text-primary",
     },
     {
-      icon: Globe,
-      title: "Frontend",
-      skills: ["React", "Next.js", "Tailwind CSS", "HTML/CSS", "Redux"],
+      icon: Cloud,
+      title: "Cloud Services",
+      skills: ["AWS", "Docker", "Kubernetes"],
       color: "text-accent",
-    },
-    {
-      icon: Server,
-      title: "Backend",
-      skills: ["Node.js", "Spring Boot", "Express", "REST APIs", "GraphQL"],
-      color: "text-primary",
     },
     {
       icon: Database,
-      title: "Database",
-      skills: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Supabase"],
-      color: "text-accent",
-    },
-    {
-      icon: Wrench,
-      title: "Tools & DevOps",
-      skills: ["Git", "Docker", "AWS", "CI/CD", "Linux"],
+      title: "Databases",
+      skills: ["MySQL", "DynamoDb"],
       color: "text-primary",
     },
     {
-      icon: Smartphone,
-      title: "Other",
-      skills: ["Agile/Scrum", "Testing", "Microservices", "WebSockets", "Security"],
+      icon: HardDrive,
+      title: "Caching",
+      skills: ["Redis", "Service Fabric Reliable Collections"],
       color: "text-accent",
+    },
+    {
+      icon: MessageSquare,
+      title: "Message Queue",
+      skills: ["Kafka"],
+      color: "text-primary",
+    },
+    {
+      icon: Activity,
+      title: "Monitoring",
+      skills: ["Grafana", "Graphite"],
+      color: "text-accent",
+    },
+    {
+      icon: TestTube,
+      title: "Testing",
+      skills: ["Mockito", "Gherkin", "Cucumber", "k6", "Pact"],
+      color: "text-primary",
+    },
+    {
+      icon: BarChart3,
+      title: "Analytics",
+      skills: ["KQL", "HQL"],
+      color: "text-accent",
+    },
+    {
+      icon: Clock3,
+      title: "CronJobs",
+      skills: ["ScheduledExecutorService", "Hangfire"],
+      color: "text-primary",
     },
   ];
 

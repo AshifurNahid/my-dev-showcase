@@ -19,6 +19,33 @@ interface Repo {
 }
 
 const Projects = () => {
+  const personalProjects = [
+    {
+      title: "Ecommerce Microservice Suite",
+      description:
+        "Distributed ecommerce platform with catalog, order, payment, and gateway services wired through an API gateway and centralized observability.",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI_sbo6h3HO7iqSuY24sXNi7eCoLAW9bS8Og&s",
+      technologies: ["Spring Boot", "Kafka", "Docker", "React"],
+    },
+    {
+      title: "Customer CRM Portal",
+      description:
+        "Role-based CRM that streamlines lead intake, account history, and notification workflows for frontline teams.",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfzdglMXR9DMmVz7PLSV1hIU3ADVGWrMy_QA&s",
+      technologies: ["ASP.NET", "Hangfire", "PostgreSQL", "Redis"],
+    },
+    {
+      title: "Driving School Management",
+      description:
+        "Scheduling and progress tracking app for instructors and learners with automated reminders and payment summaries.",
+      image:
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzFOKOy5pqyFCtmJ6HT6HCbEMtpLLEL3TeLg&s",
+      technologies: ["Node.js", "MongoDB", "Tailwind", "Kubernetes"],
+    },
+  ];
+
   const [repos, setRepos] = useState<Repo[]>([]);
   const [filteredRepos, setFilteredRepos] = useState<Repo[]>([]);
   const [loading, setLoading] = useState(true);
@@ -70,6 +97,52 @@ const Projects = () => {
               A selection of my recent work and open-source contributions.
               Each project represents a unique challenge and learning opportunity.
             </p>
+          </div>
+
+          {/* Personal Projects */}
+          <div
+            className={`space-y-6 transition-all duration-700 ${
+              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            }`}
+          >
+            <div className="flex items-center justify-between">
+              <h3 className="text-2xl font-semibold">Personal Builds</h3>
+              <span className="text-sm text-muted-foreground">Curated from passion projects with Google-sourced visuals</span>
+            </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {personalProjects.map((project, index) => (
+                <Card
+                  key={project.title}
+                  className="overflow-hidden border border-border/70 bg-card/80 backdrop-blur hover:-translate-y-1 transition-all duration-500"
+                  style={{ transitionDelay: isVisible ? `${index * 80}ms` : '0ms' }}
+                >
+                  <div className="aspect-video overflow-hidden border-b border-border/70">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-5 space-y-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <h4 className="text-xl font-semibold leading-tight">{project.title}</h4>
+                      <Badge variant="secondary" className="text-xs">Personal</Badge>
+                    </div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{project.description}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="px-2.5 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </Card>
+              ))}
+            </div>
           </div>
 
           {/* Filter Buttons */}
