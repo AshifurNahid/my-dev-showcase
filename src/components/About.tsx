@@ -62,11 +62,11 @@ const About = () => {
                     Beyond fintech, I have built personal projects including a <strong>Driving School Management</strong> system,
                     an <strong>Ecommerce site (Micro-service Architecture)</strong>, and a <strong>CRM System</strong>.
                   </p>
-                  {/* <p className="text-muted-foreground">
+                  <p className="text-muted-foreground">
                     Outside of work, I actively practice competitive programming on <strong>LeetCode</strong> and
                     <strong> Codeforces</strong>, focusing on writing clean code, deepening backend fundamentals, and exploring
                     small projects to expand my technical range.
-                  </p> */}
+                  </p>
                 </div>
               </div>
             </div>

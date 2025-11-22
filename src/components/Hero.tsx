@@ -50,17 +50,16 @@ const Hero = () => {
               <p className="text-lg text-muted-foreground animate-fade-in font-medium">
                 Hi there, I'm
               </p>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
+              <h1 className="text-5xl md:text-7xl lg:text-5xl font-bold tracking-tight">
                 <span className="text-gradient-primary">Ashifur Nahid</span>
               </h1>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                Full-Stack Developer & Java Enthusiast
+                Software Engineer 
               </h2>
             </div>
 
             <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              I craft elegant solutions to complex problems, building modern web applications
-              with passion and precision. Let's create something amazing together.
+            A lifelong learner with a passion for building high-scale, resilient systems that serve millions of users. I build robust systems where technical excellence meets business value.
             </p>
 
             {/* Action Buttons */}
