@@ -28,26 +28,26 @@ const Contact = () => {
     {
       icon: Mail,
       label: "Email",
-      value: "your.email@example.com",
-      href: "mailto:your.email@example.com",
+      value: "ashifurnahid32@gmail.com",
+      href: "mailto:ashifurnahid32@gmail.com",
     },
     {
       icon: MapPin,
-      label: "Location",
-      value: "Your City, Country",
+      label: "Dhaka, Bangladesh",
+      value: "Dhaka, Bangladesh",
       href: null,
     },
     {
       icon: Github,
       label: "GitHub",
-      value: "@AshifurNahid",
+      value: "AshifurNahid",
       href: "https://github.com/AshifurNahid",
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
-      value: "Your Name",
-      href: "https://linkedin.com",
+      value: "Ashifur Nahid",
+      href: "https://www.linkedin.com/in/ashifurnahid/",
     },
   ];
 
