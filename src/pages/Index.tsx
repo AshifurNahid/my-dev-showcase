@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -11,25 +11,14 @@ import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
 const Index = () => {
-  const [theme, setTheme] = useState<string>("light");
-
   useEffect(() => {
-    // Load theme from localStorage
-    const savedTheme = localStorage.getItem("theme") || "light";
-    setTheme(savedTheme);
-    document.documentElement.classList.toggle("dark", savedTheme === "dark");
+    document.documentElement.classList.add("dark");
+    localStorage.setItem("theme", "dark");
   }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark", newTheme === "dark");
-  };
 
   return (
     <div className="min-h-screen">
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
+      <Navbar />
       <Hero />
       <About />
       <Skills />

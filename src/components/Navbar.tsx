@@ -1,13 +1,8 @@
 import { useState, useEffect } from "react";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-interface NavbarProps {
-  theme: string;
-  toggleTheme: () => void;
-}
-
-const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
+const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -67,33 +62,10 @@ const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
                 {link.label}
               </a>
             ))}
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-              className="ml-2"
-            >
-              {theme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleTheme}
-            >
-              {theme === "dark" ? (
-                <Sun className="h-5 w-5" />
-              ) : (
-                <Moon className="h-5 w-5" />
-              )}
-            </Button>
             <Button
               variant="ghost"
               size="icon"
