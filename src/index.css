@@ -150,3 +150,39 @@ All colors MUST be HSL.
     transition: var(--transition-smooth);
   }
 }
+
+@layer components {
+  .article-content pre {
+    @apply relative overflow-x-auto rounded-xl border border-border/60 bg-muted/50 px-4 py-3 shadow-sm;
+  }
+
+  .dark .article-content pre {
+    @apply border-border/40 bg-muted/60;
+  }
+
+  .article-content code {
+    font-family: "JetBrains Mono", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco,
+      Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  .article-content code.java-highlighted {
+    @apply block whitespace-pre;
+  }
+
+  .article-content .token.comment {
+    color: hsl(215 16% 56%);
+  }
+
+  .article-content .token.keyword {
+    color: hsl(272 91% 65%);
+    font-weight: 600;
+  }
+
+  .article-content .token.string {
+    color: hsl(142 71% 45%);
+  }
+
+  .article-content .token.number {
+    color: hsl(25 95% 62%);
+  }
+}

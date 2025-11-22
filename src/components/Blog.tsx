@@ -35,6 +35,105 @@ interface ArticleDetails {
   tag_list?: string[];
 }
 
+const escapeHtml = (value: string) =>
+  value
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+const javaKeywords = [
+  "abstract",
+  "assert",
+  "boolean",
+  "break",
+  "byte",
+  "case",
+  "catch",
+  "char",
+  "class",
+  "continue",
+  "default",
+  "do",
+  "double",
+  "else",
+  "enum",
+  "extends",
+  "final",
+  "finally",
+  "float",
+  "for",
+  "if",
+  "implements",
+  "import",
+  "instanceof",
+  "int",
+  "interface",
+  "long",
+  "native",
+  "new",
+  "package",
+  "private",
+  "protected",
+  "public",
+  "return",
+  "short",
+  "static",
+  "strictfp",
+  "super",
+  "switch",
+  "synchronized",
+  "this",
+  "throw",
+  "throws",
+  "transient",
+  "try",
+  "void",
+  "volatile",
+  "while",
+];
+
+const highlightJava = (code: string) => {
+  const escaped = escapeHtml(code);
+  const stringPattern = /("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')/g;
+  const commentPattern = /(\/\*[\s\S]*?\*\/|\/\/.*?$)/gm;
+  const numberPattern = /\b(-?(?:0x[a-fA-F0-9]+|\d+(?:\.\d+)?))\b/g;
+  const keywordPattern = new RegExp(`\\b(${javaKeywords.join("|")})\\b`, "g");
+
+  return escaped
+    .replace(commentPattern, '<span class="token comment">$1</span>')
+    .replace(stringPattern, '<span class="token string">$1</span>')
+    .replace(numberPattern, '<span class="token number">$1</span>')
+    .replace(keywordPattern, '<span class="token keyword">$1</span>');
+};
+
+const enhanceJavaBlocks = () => {
+  if (typeof window === "undefined") return;
+
+  const codeBlocks = document.querySelectorAll<HTMLElement>(
+    ".article-content pre code"
+  );
+
+  codeBlocks.forEach((block) => {
+    if (block.dataset.enhanced === "true") return;
+
+    const language = block.className.toLowerCase();
+
+    if (
+      language.includes("java") ||
+      language.includes("language-java") ||
+      language.includes("lang-java")
+    ) {
+      const highlighted = highlightJava(block.textContent || "");
+
+      block.innerHTML = highlighted;
+      block.classList.add("java-highlighted");
+      block.dataset.enhanced = "true";
+    }
+  });
+};
+
 const devtoUsername =
   import.meta.env.VITE_DEVTO_USERNAME || "ashifur_nahid_c0cbfcc7105";
 
@@ -126,6 +225,12 @@ const Blog = () => {
       fetchFullArticle();
     }
   }, [activeArticle, isModalOpen, sanitizeArticleHtml]);
+
+  useEffect(() => {
+    if (!isModalOpen || articleLoading || !articleContent.html) return;
+
+    enhanceJavaBlocks();
+  }, [articleContent.html, articleLoading, isModalOpen]);
 
   const handleArticleOpen = (article: Article) => {
     setActiveArticle(article);
@@ -326,7 +431,7 @@ const Blog = () => {
                   </div>
                 ) : (
                   <div
-                    className="prose prose-neutral dark:prose-invert max-w-none leading-relaxed"
+                    className="article-content prose prose-neutral dark:prose-invert max-w-none leading-relaxed"
                     dangerouslySetInnerHTML={{ __html: articleContent.html }}
                   />
                 )}
