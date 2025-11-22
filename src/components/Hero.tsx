@@ -85,7 +85,13 @@ const Hero = () => {
                 asChild
                 className="hover:scale-105 transition-transform"
               >
-                <a href="https://drive.google.com/file/d/1dzdNnNJ5IYLy9gX1jq7scyZ_OTum_QDZ/view" download className="gap-2">
+                <a
+                  href="https://drive.google.com/file/d/1dzdNnNJ5IYLy9gX1jq7scyZ_OTum_QDZ/view"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                  className="gap-2"
+                >
                   <Download className="h-5 w-5" />
                   Download Resume
                 </a>
