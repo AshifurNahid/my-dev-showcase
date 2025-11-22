@@ -5,27 +5,48 @@ const Experience = () => {
   const experiences = [
     {
       type: "work",
-      title: "Senior Software Engineer",
-      organization: "Tech Company",
-      period: "2022 - Present",
-      description: "Leading development of scalable microservices architecture, mentoring junior developers, and implementing best practices for code quality and testing.",
-      technologies: ["Java", "Spring Boot", "React", "AWS"],
+      title: "Associate Software Engineer",
+      organization: "Sonali Intellect Limited · Dhaka, Bangladesh · On-site",
+      period: "Oct 2024 – Present",
+      description:
+        "Building enterprise-scale FinTech systems for national banking operations, optimizing BEFTN and RTGS flows, and delivering resilient core banking enhancements that improve throughput, stability, and reconciliation accuracy.",
+      technologies: [
+        "Java",
+        "Spring Boot",
+        "Oracle",
+        "PostgreSQL",
+        "Kafka",
+        "Docker",
+        "Spring Cloud",
+        "XML Processing",
+      ],
     },
     {
       type: "work",
-      title: "Full-Stack Developer",
-      organization: "Startup Inc.",
-      period: "2020 - 2022",
-      description: "Built and maintained full-stack applications, designed RESTful APIs, and collaborated with cross-functional teams to deliver features on time.",
-      technologies: ["Node.js", "React", "PostgreSQL", "Docker"],
+      title: "Software Engineer (Remote)",
+      organization: "Artics Inc. (USA) · Remote",
+      period: "Dec 2023 – Jul 2024",
+      description:
+        "Delivered a full doctor appointment and scheduling platform end to end, building secure REST APIs, role-based authentication, and scalable booking logic while coordinating with distributed PM and QA teams across time zones.",
+      technologies: ["Java", "Spring Boot", "Spring Security", "MySQL", "React/Next.js", "Docker", "Git"],
+    },
+    {
+      type: "work",
+      title: "Software Engineer Intern",
+      organization: "Dynamic Solution Innovators Ltd. (DSI) · Dhaka, Bangladesh · On-site",
+      period: "Sep 2023 – Oct 2023",
+      description:
+        "Built a second-hand product resale platform with Spring Boot APIs, gaining hands-on experience with debugging, deployment workflows, and agile teamwork in a fast-paced environment.",
+      technologies: ["Java", "Spring Boot", "MySQL", "REST", "Git"],
     },
     {
       type: "education",
-      title: "Bachelor of Science in Computer Science",
-      organization: "University Name",
-      period: "2016 - 2020",
-      description: "Focused on software engineering, algorithms, and data structures. Completed capstone project on distributed systems.",
-      technologies: ["Java", "Python", "Data Structures", "Algorithms"],
+      title: "Bachelor of Science in Computer Science and Engineering",
+      organization: "Chittagong University of Engineering and Technology (CUET)",
+      period: "Feb 2019 – Mar 2024 · CGPA: 3.53/4.00",
+      description:
+        "Focused on algorithms, system design, databases, and backend engineering fundamentals through coursework and projects.",
+      technologies: ["Java", "Data Structures", "Algorithms", "System Design", "Database Systems", "OOP"],
     },
   ];
 
