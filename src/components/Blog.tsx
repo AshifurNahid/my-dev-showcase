@@ -17,6 +17,9 @@ interface Article {
   reading_time_minutes: number;
 }
 
+const devtoUsername = import.meta.env.VITE_DEVTO_USERNAME || "ashifur_nahid_c0cbfcc7105";
+const devtoApiKey = import.meta.env.VITE_DEVTO_API_KEY || "MpVpBBheKvUXQiaKzoDnibnr";
+
 const Blog = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,20 +28,30 @@ const Blog = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const response = await fetch(
-          "https://dev.to/api/articles?username=ashifur_nahid_c0cbfcc7105&per_page=6"
-        );
+        const url = devtoApiKey
+          ? "https://dev.to/api/articles/me/published?per_page=6"
+          : `https://dev.to/api/articles?username=${devtoUsername}&per_page=6`;
+
+        const response = await fetch(url, {
+          headers: devtoApiKey ? { "api-key": devtoApiKey } : undefined,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to fetch articles: ${response.status}`);
+        }
+
         const data = await response.json();
-        setArticles(data);
+        setArticles(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Error fetching articles:", error);
+        setArticles([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchArticles();
-  }, []);
+  }, [devtoApiKey, devtoUsername]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -165,7 +178,7 @@ const Blog = () => {
           <div className="text-center pt-8">
             <Button asChild variant="outline" size="lg">
               <a
-                href="https://dev.to/ashifur_nahid_c0cbfcc7105"
+                href={`https://dev.to/${devtoUsername}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="gap-2"
