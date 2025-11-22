@@ -1,9 +1,17 @@
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ExternalLink, Calendar, Heart } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
 
 interface Article {
   id: number;
@@ -15,6 +23,16 @@ interface Article {
   positive_reactions_count: number;
   cover_image: string | null;
   reading_time_minutes: number;
+  path: string;
+}
+
+interface ArticleDetails {
+  body_html?: string;
+  title: string;
+  cover_image?: string | null;
+  description?: string;
+  published_at?: string;
+  tag_list?: string[];
 }
 
 const devtoUsername =
@@ -23,6 +41,14 @@ const devtoUsername =
 const Blog = () => {
   const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [activeArticle, setActiveArticle] = useState<Article | null>(null);
+  const [articleContent, setArticleContent] = useState<{
+    html: string;
+    meta?: ArticleDetails;
+  }>({ html: "" });
+  const [articleLoading, setArticleLoading] = useState(false);
+  const [articleError, setArticleError] = useState<string | null>(null);
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
 
   useEffect(() => {
@@ -49,11 +75,78 @@ const Blog = () => {
     fetchArticles();
   }, [devtoUsername]);
 
+  const sanitizeArticleHtml = useCallback((html: string) => {
+    if (typeof window === "undefined" || !html) return html;
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+
+    doc.querySelectorAll("script, style").forEach((el) => el.remove());
+    doc.querySelectorAll("*").forEach((el) => {
+      [...el.attributes].forEach((attr) => {
+        if (attr.name.startsWith("on")) {
+          el.removeAttribute(attr.name);
+        }
+      });
+    });
+
+    return doc.body.innerHTML;
+  }, []);
+
+  useEffect(() => {
+    const fetchFullArticle = async () => {
+      if (!activeArticle) return;
+
+      setArticleLoading(true);
+      setArticleError(null);
+      setArticleContent({ html: "" });
+
+      try {
+        const response = await fetch(`https://dev.to/api/articles${activeArticle.path}`);
+
+        if (!response.ok) {
+          throw new Error(`Failed to load article (${response.status})`);
+        }
+
+        const data: ArticleDetails & { body_html?: string } = await response.json();
+
+        setArticleContent({
+          html: sanitizeArticleHtml(data.body_html || ""),
+          meta: data,
+        });
+      } catch (error) {
+        console.error("Error fetching article:", error);
+        setArticleError("Unable to load this article right now. Please try again.");
+      } finally {
+        setArticleLoading(false);
+      }
+    };
+
+    if (isModalOpen) {
+      fetchFullArticle();
+    }
+  }, [activeArticle, isModalOpen, sanitizeArticleHtml]);
+
+  const handleArticleOpen = (article: Article) => {
+    setActiveArticle(article);
+    setIsModalOpen(true);
+  };
+
+  const handleModalToggle = (open: boolean) => {
+    setIsModalOpen(open);
+
+    if (!open) {
+      setActiveArticle(null);
+      setArticleContent({ html: "" });
+      setArticleError(null);
+    }
+  };
+
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   };
 
@@ -155,15 +248,10 @@ const Blog = () => {
                     </div>
 
                     <Button asChild className="w-full">
-                      <a
-                        href={article.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="gap-2"
-                      >
+                      <button className="gap-2" onClick={() => handleArticleOpen(article)}>
                         <ExternalLink className="h-4 w-4" />
-                        Read Article ({article.reading_time_minutes} min)
-                      </a>
+                        Quick Read ({article.reading_time_minutes} min)
+                      </button>
                     </Button>
                   </div>
                 </Card>
@@ -184,6 +272,88 @@ const Blog = () => {
               </a>
             </Button>
           </div>
+
+          <Dialog open={isModalOpen} onOpenChange={handleModalToggle}>
+            <DialogContent className="max-w-5xl md:max-w-6xl border border-white/10 bg-gradient-to-br from-background/95 via-background/80 to-muted/60 backdrop-blur-lg shadow-[0_20px_80px_-40px_rgba(0,0,0,0.65)] overflow-hidden">
+              <DialogHeader>
+                <DialogTitle className="text-2xl font-bold flex items-start gap-3">
+                  <span className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary shadow-inner shadow-primary/30">
+                    📰
+                  </span>
+                  <span className="leading-tight">
+                    {activeArticle?.title || "Loading article..."}
+                  </span>
+                </DialogTitle>
+              </DialogHeader>
+
+              {activeArticle?.cover_image && (
+                <div className="relative overflow-hidden rounded-xl border bg-muted/40">
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent" />
+                  <img
+                    src={activeArticle.cover_image}
+                    alt={activeArticle.title}
+                    className="h-64 w-full object-cover scale-105 transition duration-700 ease-out"
+                  />
+                </div>
+              )}
+
+              <div className="space-y-3">
+                <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+                  <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-primary">
+                    {activeArticle?.reading_time_minutes} min read
+                  </span>
+                  {activeArticle?.tag_list?.slice(0, 4).map((tag) => (
+                    <Badge key={tag} variant="secondary" className="rounded-full bg-secondary/40">
+                      #{tag}
+                    </Badge>
+                  ))}
+                </div>
+
+                <Separator className="bg-border/60" />
+              </div>
+
+              <ScrollArea className="max-h-[60vh] md:max-h-[65vh] pr-4">
+                {articleLoading ? (
+                  <div className="space-y-3 animate-pulse">
+                    <div className="h-6 w-3/4 rounded bg-muted" />
+                    <div className="h-4 w-full rounded bg-muted" />
+                    <div className="h-4 w-5/6 rounded bg-muted" />
+                    <div className="h-96 w-full rounded bg-muted" />
+                  </div>
+                ) : articleError ? (
+                  <div className="rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-destructive">
+                    {articleError}
+                  </div>
+                ) : (
+                  <div
+                    className="prose prose-neutral dark:prose-invert max-w-none leading-relaxed"
+                    dangerouslySetInnerHTML={{ __html: articleContent.html }}
+                  />
+                )}
+              </ScrollArea>
+
+              <div className="flex flex-wrap gap-3 text-sm text-muted-foreground">
+                <Button asChild variant="outline">
+                  <a
+                    href={activeArticle?.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="gap-2"
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    Continue on Dev.to
+                  </a>
+                </Button>
+
+                {activeArticle?.published_at && (
+                  <span className="flex items-center gap-2 rounded-full border border-border/60 bg-muted/40 px-3 py-1">
+                    <Calendar className="h-4 w-4" />
+                    {formatDate(activeArticle.published_at)}
+                  </span>
+                )}
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
     </section>
