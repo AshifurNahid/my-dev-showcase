@@ -37,8 +37,8 @@ const Hero = () => {
             {/* Avatar with Glow Effect */}
             <div className="flex justify-center mb-6">
               <div className="relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full blur-lg opacity-75 group-hover:opacity-100 transition duration-300 animate-glow"></div>
-                <Avatar className="relative h-40 w-40 border-4 border-card shadow-2xl">
+                <div className="absolute -inset-1 bg-gradient-to-r from-primary to-accent rounded-full blur-lg opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                <Avatar className="relative h-44 w-44 border-4 border-card shadow-2xl">
                   <AvatarImage src="https://avatars.githubusercontent.com/u/97047681?v=4" alt="Ashifur Nahid" />
                   <AvatarFallback>AN</AvatarFallback>
                 </Avatar>
