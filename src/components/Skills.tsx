@@ -1,60 +1,119 @@
+import React from 'react';
 import { Card } from "@/components/ui/card";
 import {
   Code2,
   Database,
-  Globe,
-  Wrench,
-  Server,
-  Smartphone,
+  Cloud,
+  Zap,
+  Network,
+  BarChart3,
+  Beaker,
+  Clock,
+  Layers,
 } from "lucide-react";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 const Skills = () => {
-  const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+  const [isVisible, setIsVisible] = React.useState(false);
+  const elementRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (elementRef.current) {
+      observer.observe(elementRef.current);
+    }
+
+    return () => {
+      if (elementRef.current) {
+        observer.unobserve(elementRef.current);
+      }
+    };
+  }, []);
   
   const skillCategories = [
     {
       icon: Code2,
-      title: "Languages",
-      skills: ["Java", "JavaScript", "TypeScript", "Python", "SQL"],
+      title: "Backend Development",
+      skills: ["Java", "Spring Boot", "Servlets/JSP", "RESTful APIs", "Microservices"],
       color: "text-primary",
-    },
-    {
-      icon: Globe,
-      title: "Frontend",
-      skills: ["React", "Next.js", "Tailwind CSS", "HTML/CSS", "Redux"],
-      color: "text-accent",
-    },
-    {
-      icon: Server,
-      title: "Backend",
-      skills: ["Node.js", "Spring Boot", "Express", "REST APIs", "GraphQL"],
-      color: "text-primary",
+      bgColor: "bg-primary/10",
     },
     {
       icon: Database,
-      title: "Database",
-      skills: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "Supabase"],
-      color: "text-accent",
+      title: "Databases",
+      skills: ["Oracle", "PostgreSQL", "MySQL", "JDBC", "JPA/Hibernate"],
+      color: "text-blue-500",
+      bgColor: "bg-blue-500/10",
     },
     {
-      icon: Wrench,
-      title: "Tools & DevOps",
-      skills: ["Git", "Docker", "AWS", "CI/CD", "Linux"],
-      color: "text-primary",
+      icon: Cloud,
+      title: "Cloud & DevOps",
+      skills: ["Docker", "Linux", "Git", "CI/CD", "AWS"],
+      color: "text-purple-500",
+      bgColor: "bg-purple-500/10",
     },
     {
-      icon: Smartphone,
-      title: "Other",
-      skills: ["Agile/Scrum", "Testing", "Microservices", "WebSockets", "Security"],
-      color: "text-accent",
+      icon: Zap,
+      title: "Caching & Performance",
+      skills: ["Redis", "Query Optimization", "Transaction Management", "Multithreading"],
+      color: "text-amber-500",
+      bgColor: "bg-amber-500/10",
+    },
+    {
+      icon: Network,
+      title: "Message Queue & Integration",
+      skills: ["Kafka", "API Integration", "Event-Driven Architecture", "WebSockets"],
+      color: "text-green-500",
+      bgColor: "bg-green-500/10",
+    },
+    {
+      icon: BarChart3,
+      title: "Monitoring & Analytics",
+      skills: ["Grafana", "Log Analysis", "SQL Debugging", "Performance Monitoring"],
+      color: "text-cyan-500",
+      bgColor: "bg-cyan-500/10",
+    },
+    {
+      icon: Beaker,
+      title: "Testing & Quality",
+      skills: ["JUnit", "Mockito", "Integration Testing", "API Testing", "Debugging"],
+      color: "text-rose-500",
+      bgColor: "bg-rose-500/10",
+    },
+    {
+      icon: Clock,
+      title: "Scheduled Jobs & Automation",
+      skills: ["ScheduledExecutorService", "Cron Jobs", "Batch Processing", "Task Scheduling"],
+      color: "text-indigo-500",
+      bgColor: "bg-indigo-500/10",
+    },
+    {
+      icon: Layers,
+      title: "Architecture & Patterns",
+      skills: ["Microservices", "Design Patterns", "System Design", "Agile/Scrum"],
+      color: "text-teal-500",
+      bgColor: "bg-teal-500/10",
     },
   ];
 
   return (
-    <section id="skills" className="py-24 bg-muted/50">
+    <section id="skills" className="py-24 bg-gradient-to-b from-background via-muted/30 to-background relative overflow-hidden">
+      {/* Background Decoration */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-1/3 -left-20 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/3 -right-20 w-96 h-96 bg-accent/5 rounded-full blur-3xl" />
+      </div>
+
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto space-y-12">
+          {/* Section Header */}
           <div 
             ref={elementRef}
             className={`text-center space-y-4 transition-all duration-700 ${
@@ -62,42 +121,64 @@ const Skills = () => {
             }`}
           >
             <h2 className="text-4xl md:text-5xl font-bold">
-              Skills & <span className="text-gradient-primary">Expertise</span>
+              Skills & <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Expertise</span>
             </h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A comprehensive toolkit built through hands-on experience and continuous learning.
+              Technical expertise built through hands-on experience in fintech and enterprise systems
             </p>
           </div>
 
+          {/* Skills Grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {skillCategories.map((category, index) => (
               <Card
                 key={index}
-                className={`p-6 space-y-4 hover:shadow-lg transition-all duration-500 hover:-translate-y-1 ${
+                className={`border-2 border-border/50 hover:border-primary/30 transition-all duration-500 hover:-translate-y-2 bg-card/80 backdrop-blur-sm shadow-lg hover:shadow-xl ${
                   isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
                 }`}
-                style={{
-                  transitionDelay: isVisible ? `${index * 100}ms` : '0ms'
-                }}
+                
               >
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <category.icon className={`h-6 w-6 ${category.color}`} />
+                <div className="p-6 space-y-4">
+                  {/* Header */}
+                  <div className="flex items-center gap-3">
+                    <div className={`w-12 h-12 rounded-lg ${category.bgColor} flex items-center justify-center transition-transform hover:scale-110`}>
+                      <category.icon className={`h-6 w-6 ${category.color}`} />
+                    </div>
+                    <h3 className="text-lg font-bold leading-tight">{category.title}</h3>
                   </div>
-                  <h3 className="text-xl font-semibold">{category.title}</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 bg-secondary text-secondary-foreground rounded-full text-sm font-medium"
-                    >
-                      {skill}
-                    </span>
-                  ))}
+                  
+                  {/* Skills Tags */}
+                  <div className="flex flex-wrap gap-2">
+                    {category.skills.map((skill, skillIndex) => (
+                      <span
+                        key={skillIndex}
+                        className="px-3 py-1.5 bg-secondary/80 hover:bg-secondary text-secondary-foreground rounded-md text-sm font-medium transition-all hover:scale-105 cursor-default border border-border/50"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               </Card>
             ))}
+          </div>
+
+          {/* Additional Info Section */}
+          <div className="mt-12 text-center">
+            <Card className="border-2 border-border/50 bg-card/50 backdrop-blur-sm max-w-4xl mx-auto">
+              <div className="p-8">
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-bold">Domain Expertise</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Specialized in <span className="font-semibold text-foreground">Financial Technology</span> with deep experience in 
+                    banking systems, payment processing, transaction management, and regulatory compliance. 
+                    Proven track record in building and maintaining mission-critical systems that handle high-volume, 
+                    real-time financial operations across nationwide networks.
+                  </p>
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
       </div>
