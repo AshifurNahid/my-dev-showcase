@@ -5,23 +5,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 const About = () => {
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
   
-  const highlights = [
-    {
-      icon: Code2,
-      title: "Fintech Engineering",
-      description: "Builds secure, large-scale banking services that power nationwide financial systems.",
-    },
-    {
-      icon: Sparkles,
-      title: "Reliable Integrations",
-      description: "Hands-on with ATM middleware, RTGS microservices, BEFTN workflows, and CBS connectivity.",
-    },
-    {
-      icon: Target,
-      title: "Operational Excellence",
-      description: "Collaborates across teams to debug production issues and refine transaction flows end-to-end.",
-    },
-  ];
+  
 
   return (
     <section id="about" className="py-24 bg-muted/50">
@@ -36,30 +20,6 @@ const About = () => {
             <h2 className="text-4xl md:text-5xl font-bold">
               About <span className="text-gradient-primary">Me</span>
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Building secure, resilient platforms for modern finance while keeping code clean,
-              scalable, and easy to evolve.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {highlights.map((item, index) => (
-              <Card
-                key={index}
-                className={`p-6 space-y-4 hover:shadow-lg transition-all duration-500 hover:-translate-y-1 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                }`}
-                style={{
-                  transitionDelay: isVisible ? `${index * 100}ms` : '0ms'
-                }}
-              >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                  <item.icon className="h-6 w-6 text-primary" />
-                </div>
-                <h3 className="text-xl font-semibold">{item.title}</h3>
-                <p className="text-muted-foreground">{item.description}</p>
-              </Card>
-            ))}
           </div>
 
           <Card className="p-8 bg-card">
