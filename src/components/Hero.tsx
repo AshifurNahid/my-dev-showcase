@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Github, Linkedin, Mail, ArrowDown, Download } from "lucide-react";
+import { Github, Linkedin, Mail, ArrowDown, Download, Code2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useParallax } from "@/hooks/useScrollAnimation";
 import GitHubStats from "./GitHubStats";
@@ -94,12 +94,13 @@ const Hero = () => {
             </div>
 
             {/* Social Links */}
-            <div className="flex items-center justify-center gap-4 pt-6">
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-6">
               <a
                 href="https://github.com/AshifurNahid"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-card/50 backdrop-blur-sm hover:bg-primary/10 border border-border hover:border-primary transition-all shadow-md hover:shadow-glow hover:scale-110"
+                aria-label="GitHub Profile"
               >
                 <Github className="h-6 w-6" />
               </a>
@@ -108,12 +109,32 @@ const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-3 rounded-full bg-card/50 backdrop-blur-sm hover:bg-primary/10 border border-border hover:border-primary transition-all shadow-md hover:shadow-glow hover:scale-110"
+                aria-label="LinkedIn Profile"
               >
                 <Linkedin className="h-6 w-6" />
               </a>
               <a
+                href="https://leetcode.com/u/Ashifur_Nahid/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-card/50 backdrop-blur-sm hover:bg-accent/10 border border-border hover:border-accent transition-all shadow-md hover:shadow-glow hover:scale-110"
+                aria-label="LeetCode Profile"
+              >
+                <Code2 className="h-6 w-6 text-accent" />
+              </a>
+              <a
+                href="https://codeforces.com/profile/_12abcd24_"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-3 rounded-full bg-card/50 backdrop-blur-sm hover:bg-primary/10 border border-border hover:border-primary transition-all shadow-md hover:shadow-glow hover:scale-110"
+                aria-label="Codeforces Profile"
+              >
+                <Code2 className="h-6 w-6 text-primary" />
+              </a>
+              <a
                 href="mailto:your.email@example.com"
                 className="p-3 rounded-full bg-card/50 backdrop-blur-sm hover:bg-primary/10 border border-border hover:border-primary transition-all shadow-md hover:shadow-glow hover:scale-110"
+                aria-label="Email"
               >
                 <Mail className="h-6 w-6" />
               </a>

@@ -22,8 +22,9 @@ const Navbar = ({ theme, toggleTheme }: NavbarProps) => {
   const navLinks = [
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
-    { href: "#projects", label: "Projects" },
     { href: "#skills", label: "Skills" },
+    { href: "#competitive-programming", label: "CP Journey" },
+    { href: "#projects", label: "Projects" },
     { href: "#experience", label: "Experience" },
     { href: "#blog", label: "Blog" },
     { href: "#contact", label: "Contact" },
