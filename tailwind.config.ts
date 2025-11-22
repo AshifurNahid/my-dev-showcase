@@ -15,6 +15,61 @@ export default {
       },
     },
     extend: {
+      typography: ({ theme }) => ({
+        DEFAULT: {
+          css: {
+            '--tw-prose-pre-bg': 'hsl(var(--muted))',
+            '--tw-prose-pre-border': 'hsl(var(--border))',
+            code: {
+              color: 'hsl(var(--foreground))',
+              backgroundColor: 'hsl(var(--muted) / 0.35)',
+              padding: '0.15rem 0.35rem',
+              borderRadius: theme('borderRadius.sm'),
+            },
+            'code::before, code::after': {
+              content: '""',
+            },
+            pre: {
+              backgroundColor: 'hsl(var(--background))',
+              borderColor: 'hsl(var(--border))',
+              borderWidth: '1px',
+              borderRadius: theme('borderRadius.lg'),
+              boxShadow: '0 12px 30px -12px rgba(0,0,0,0.35)',
+            },
+            'pre code': {
+              color: 'hsl(var(--primary))',
+              backgroundColor: 'transparent',
+              padding: '0',
+              fontWeight: '600',
+            },
+            'code[class*="language-"]': {
+              color: 'hsl(var(--primary))',
+              textShadow: '0 1px 0 rgba(0,0,0,0.25)',
+            },
+          },
+        },
+        invert: {
+          css: {
+            '--tw-prose-pre-bg': 'hsl(var(--muted))',
+            '--tw-prose-pre-border': 'hsl(var(--border))',
+            code: {
+              color: 'hsl(var(--foreground))',
+              backgroundColor: 'hsl(var(--muted) / 0.2)',
+            },
+            pre: {
+              backgroundColor: 'hsl(var(--background))',
+              borderColor: 'hsl(var(--border))',
+              boxShadow: '0 12px 30px -12px rgba(0,0,0,0.6)',
+            },
+            'pre code': {
+              color: 'hsl(var(--primary))',
+            },
+            'code[class*="language-"]': {
+              color: 'hsl(var(--primary))',
+            },
+          },
+        },
+      }),
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
