@@ -153,11 +153,11 @@ All colors MUST be HSL.
 
 @layer components {
   .article-content pre {
-    @apply relative overflow-x-auto rounded-xl border border-border/60 bg-muted/50 px-4 py-3 shadow-sm;
+    @apply relative overflow-x-auto rounded-xl border border-white/10 bg-black px-4 py-3 text-white shadow-sm;
   }
 
   .dark .article-content pre {
-    @apply border-border/40 bg-muted/60;
+    @apply border-white/20 bg-black;
   }
 
   .article-content code {
