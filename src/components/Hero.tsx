@@ -45,7 +45,6 @@ const Hero = () => {
               </div>
             </div>
             
-            {/* Title Section */}
             <div className="space-y-4">
               <p className="text-lg text-muted-foreground animate-fade-in font-medium">
                 Hi there, I'm
@@ -62,7 +61,6 @@ const Hero = () => {
             A lifelong learner with a passion for building high-scale, resilient systems that serve millions of users. I build robust systems where technical excellence meets business value.
             </p>
 
-            {/* Action Buttons */}
             <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
               <Button
                 size="lg"
@@ -98,7 +96,6 @@ const Hero = () => {
               </Button>
             </div>
 
-            {/* Social Links */}
             <div className="flex flex-wrap items-center justify-center gap-4 pt-6">
               <a
                 href="https://github.com/AshifurNahid"
