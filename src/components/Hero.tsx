@@ -85,7 +85,7 @@ const Hero = () => {
                 asChild
                 className="hover:scale-105 transition-transform"
               >
-                <a href="/resume.pdf" download className="gap-2">
+                <a href="https://drive.google.com/file/d/1dzdNnNJ5IYLy9gX1jq7scyZ_OTum_QDZ/view" download className="gap-2">
                   <Download className="h-5 w-5" />
                   Download Resume
                 </a>
@@ -131,7 +131,7 @@ const Hero = () => {
                 <Code2 className="h-6 w-6 text-primary" />
               </a>
               <a
-                href="mailto:your.email@example.com"
+                href="mailto:ashifurnahid32@gmail.com"
                 className="p-3 rounded-full bg-card/50 backdrop-blur-sm hover:bg-primary/10 border border-border hover:border-primary transition-all shadow-md hover:shadow-glow hover:scale-110"
                 aria-label="Email"
               >
@@ -140,10 +140,7 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* GitHub Stats */}
-          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <GitHubStats />
-          </div>
+
 
           {/* GitHub Contributions */}
           <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
