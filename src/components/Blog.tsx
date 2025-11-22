@@ -17,8 +17,8 @@ interface Article {
   reading_time_minutes: number;
 }
 
-const devtoUsername = import.meta.env.VITE_DEVTO_USERNAME || "ashifur_nahid_c0cbfcc7105";
-const devtoApiKey = import.meta.env.VITE_DEVTO_API_KEY || "MpVpBBheKvUXQiaKzoDnibnr";
+const devtoUsername =
+  import.meta.env.VITE_DEVTO_USERNAME || "ashifur_nahid_c0cbfcc7105";
 
 const Blog = () => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -28,13 +28,9 @@ const Blog = () => {
   useEffect(() => {
     const fetchArticles = async () => {
       try {
-        const url = devtoApiKey
-          ? "https://dev.to/api/articles/me/published?per_page=6"
-          : `https://dev.to/api/articles?username=${devtoUsername}&per_page=6`;
+        const url = `https://dev.to/api/articles?username=${devtoUsername}`;
 
-        const response = await fetch(url, {
-          headers: devtoApiKey ? { "api-key": devtoApiKey } : undefined,
-        });
+        const response = await fetch(url);
 
         if (!response.ok) {
           throw new Error(`Failed to fetch articles: ${response.status}`);
@@ -51,7 +47,7 @@ const Blog = () => {
     };
 
     fetchArticles();
-  }, [devtoApiKey, devtoUsername]);
+  }, [devtoUsername]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
