@@ -414,20 +414,6 @@ const Blog = () => {
                 </DialogTitle>
               </DialogHeader>
 
-              <div className="relative overflow-hidden rounded-xl border bg-muted/40 aspect-[16/9]">
-                <div
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-transparent"
-                  aria-hidden
-                />
-                <img
-                  src={activeArticle?.cover_image || articlePlaceholder}
-                  alt={activeArticle?.title || "Article cover"}
-                  className="h-full w-full object-cover transition duration-700 ease-out"
-                  loading="lazy"
-                  onError={handleImageFallback}
-                />
-              </div>
-
               <div className="space-y-3">
                 <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
                   <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-primary">
