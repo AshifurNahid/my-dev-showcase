@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type SyntheticEvent } from "react";
 import { ExternalLink, Calendar, Heart } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
+import articlePlaceholder from "@/assets/article-placeholder.svg";
 
 interface Article {
   id: number;
@@ -152,6 +153,11 @@ const Blog = () => {
   const [articleLoading, setArticleLoading] = useState(false);
   const [articleError, setArticleError] = useState<string | null>(null);
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
+  const handleImageFallback = (event: SyntheticEvent<HTMLImageElement>) => {
+    event.currentTarget.onerror = null;
+    event.currentTarget.src = articlePlaceholder;
+  };
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -314,66 +320,70 @@ const Blog = () => {
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {articles.map((article, index) => (
-                <Card
-                  key={article.id}
-                  className={`overflow-hidden hover:shadow-lg transition-all duration-500 hover:-translate-y-1 flex flex-col ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                  }`}
-                  style={{
-                    transitionDelay: isVisible ? `${index * 100}ms` : '0ms'
-                  }}
-                >
-                  {article.cover_image && (
+              {articles.map((article, index) => {
+                const imageSrc = article.cover_image || articlePlaceholder;
+
+                return (
+                  <Card
+                    key={article.id}
+                    className={`overflow-hidden hover:shadow-lg transition-all duration-500 hover:-translate-y-1 flex flex-col ${
+                      isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                    }`}
+                    style={{
+                      transitionDelay: isVisible ? `${index * 100}ms` : '0ms'
+                    }}
+                  >
                     <div className="aspect-video overflow-hidden bg-muted">
                       <img
-                        src={article.cover_image}
+                        src={imageSrc}
                         alt={article.title}
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                        onError={handleImageFallback}
                       />
                     </div>
-                  )}
-                  
-                  <div className="p-6 space-y-4 flex-1 flex flex-col">
-                    <div className="space-y-2 flex-1">
-                      <h3 className="text-xl font-semibold line-clamp-2 hover:text-primary transition-colors">
-                        {article.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground line-clamp-3">
-                        {article.description}
-                      </p>
-                    </div>
 
-                    {article.tag_list && article.tag_list.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {article.tag_list.slice(0, 3).map((tag) => (
-                          <Badge key={tag} variant="secondary" className="text-xs">
-                            #{tag}
-                          </Badge>
-                        ))}
+                    <div className="p-6 space-y-4 flex-1 flex flex-col">
+                      <div className="space-y-2 flex-1">
+                        <h3 className="text-xl font-semibold line-clamp-2 hover:text-primary transition-colors">
+                          {article.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground line-clamp-3">
+                          {article.description}
+                        </p>
                       </div>
-                    )}
 
-                    <div className="flex items-center justify-between text-sm text-muted-foreground pt-2 border-t">
-                      <span className="flex items-center gap-1">
-                        <Calendar className="h-4 w-4" />
-                        {formatDate(article.published_at)}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Heart className="h-4 w-4" />
-                        {article.positive_reactions_count}
-                      </span>
+                      {article.tag_list && article.tag_list.length > 0 && (
+                        <div className="flex flex-wrap gap-2">
+                          {article.tag_list.slice(0, 3).map((tag) => (
+                            <Badge key={tag} variant="secondary" className="text-xs">
+                              #{tag}
+                            </Badge>
+                          ))}
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-between text-sm text-muted-foreground pt-2 border-t">
+                        <span className="flex items-center gap-1">
+                          <Calendar className="h-4 w-4" />
+                          {formatDate(article.published_at)}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Heart className="h-4 w-4" />
+                          {article.positive_reactions_count}
+                        </span>
+                      </div>
+
+                      <Button asChild className="w-full">
+                        <button className="gap-2" onClick={() => handleArticleOpen(article)}>
+                          <ExternalLink className="h-4 w-4" />
+                          Quick Read ({article.reading_time_minutes} min)
+                        </button>
+                      </Button>
                     </div>
-
-                    <Button asChild className="w-full">
-                      <button className="gap-2" onClick={() => handleArticleOpen(article)}>
-                        <ExternalLink className="h-4 w-4" />
-                        Quick Read ({article.reading_time_minutes} min)
-                      </button>
-                    </Button>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+                );
+              })}
             </div>
           )}
 
@@ -404,17 +414,6 @@ const Blog = () => {
                 </DialogTitle>
               </DialogHeader>
 
-              {activeArticle?.cover_image && (
-                <div className="relative overflow-hidden rounded-xl border bg-muted/40">
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent" />
-                  <img
-                    src={activeArticle.cover_image}
-                    alt={activeArticle.title}
-                    className="h-64 w-full object-cover scale-105 transition duration-700 ease-out"
-                  />
-                </div>
-              )}
-
               <div className="space-y-3">
                 <div className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
                   <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-primary">
@@ -430,7 +429,10 @@ const Blog = () => {
                 <Separator className="bg-border/60" />
               </div>
 
-              <ScrollArea className="max-h-[55vh] sm:max-h-[60vh] md:max-h-[65vh] pr-2 sm:pr-4">
+              <ScrollArea
+                key={activeArticle?.id || "article-modal"}
+                className="max-h-[55vh] sm:max-h-[60vh] md:max-h-[65vh] pr-2 sm:pr-4"
+              >
                 {articleLoading ? (
                   <div className="space-y-3 animate-pulse">
                     <div className="h-6 w-3/4 rounded bg-muted" />
