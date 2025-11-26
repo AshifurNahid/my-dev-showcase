@@ -22,7 +22,7 @@ const projects: Project[] = [
     title: "CRM Application",
     description:
       "Full-featured sales and marketing hub with real-time analytics, lead routing, and campaign management dashboards.",
-    tech: ["React", "Next.js", "Node.js", "MongoDB"],
+    tech: [ "Java", "Spring Boot", "Postgres", "React", "Next.js"],
     codeUrl: "https://github.com/AshifurNahid/CRM",
     liveUrl: "https://crm-frontend-taupe.vercel.app/",
     image: crmDashboardImage,
@@ -31,7 +31,7 @@ const projects: Project[] = [
     title: "Driving School Platform",
     description:
       "Scheduling and enrollment experience for driving schools, featuring course discovery, instructor profiles, and online booking.",
-    tech: ["React", "Express", "MongoDB", "TailwindCSS"],
+    tech: ["C#", ".NET", "NextJs", "Mysql", "TailwindCSS"],
     codeUrl: "https://github.com/AshifurNahid/driving-school-backend",
     liveUrl: "https://driving-school-frontend-phi.vercel.app/",
     image: drivingSchoolImage,
@@ -39,8 +39,8 @@ const projects: Project[] = [
   {
     title: "Ecommerce Microservice",
     description:
-      "Event-driven commerce backend with modular services for catalog, orders, payments, and notifications.",
-    tech: ["Node.js", "Express", "MongoDB", "Microservices"],
+      "Scalable microservices-based e-commerce platform built with Spring Boot, Spring Cloud, Kafka, and Docker, following event-driven architecture and modern distributed patterns.",
+    tech: ["Spring Boot", "Microservice", "Postgres", "Kafka", "Spring Security"],
     codeUrl: "https://github.com/AshifurNahid/Ecommerce-Microservice",
     image: ecommerceImage,
   },
