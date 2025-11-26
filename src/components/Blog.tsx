@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type SyntheticEvent } from "react";
 import { ExternalLink, Calendar, Heart } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -153,6 +153,11 @@ const Blog = () => {
   const [articleLoading, setArticleLoading] = useState(false);
   const [articleError, setArticleError] = useState<string | null>(null);
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.2 });
+
+  const handleImageFallback = (event: SyntheticEvent<HTMLImageElement>) => {
+    event.currentTarget.onerror = null;
+    event.currentTarget.src = articlePlaceholder;
+  };
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -334,6 +339,7 @@ const Blog = () => {
                         alt={article.title}
                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                         loading="lazy"
+                        onError={handleImageFallback}
                       />
                     </div>
 
@@ -408,13 +414,17 @@ const Blog = () => {
                 </DialogTitle>
               </DialogHeader>
 
-              <div className="relative overflow-hidden rounded-xl border bg-muted/40">
-                <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent" />
+              <div className="relative overflow-hidden rounded-xl border bg-muted/40 aspect-[16/9]">
+                <div
+                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/60 via-transparent"
+                  aria-hidden
+                />
                 <img
                   src={activeArticle?.cover_image || articlePlaceholder}
                   alt={activeArticle?.title || "Article cover"}
-                  className="h-64 w-full object-cover scale-105 transition duration-700 ease-out"
+                  className="h-full w-full object-cover transition duration-700 ease-out"
                   loading="lazy"
+                  onError={handleImageFallback}
                 />
               </div>
 
@@ -433,7 +443,10 @@ const Blog = () => {
                 <Separator className="bg-border/60" />
               </div>
 
-              <ScrollArea className="max-h-[55vh] sm:max-h-[60vh] md:max-h-[65vh] pr-2 sm:pr-4">
+              <ScrollArea
+                key={activeArticle?.id || "article-modal"}
+                className="max-h-[55vh] sm:max-h-[60vh] md:max-h-[65vh] pr-2 sm:pr-4"
+              >
                 {articleLoading ? (
                   <div className="space-y-3 animate-pulse">
                     <div className="h-6 w-3/4 rounded bg-muted" />
