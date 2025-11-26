@@ -136,6 +136,9 @@ const enhanceJavaBlocks = () => {
 
 const devtoUsername =
   import.meta.env.VITE_DEVTO_USERNAME || "ashifur_nahid_c0cbfcc7105";
+const devtoApiKey = import.meta.env.VITE_DEVTO_API_KEY;
+const devtoArticlesLimit =
+  Number.parseInt(import.meta.env.VITE_DEVTO_ARTICLES_LIMIT || "", 10) || 6;
 
 const Blog = () => {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -152,10 +155,20 @@ const Blog = () => {
 
   useEffect(() => {
     const fetchArticles = async () => {
-      try {
-        const url = `https://dev.to/api/articles?username=${devtoUsername}`;
+      setLoading(true);
 
-        const response = await fetch(url);
+      try {
+        const url = devtoApiKey
+          ? `https://dev.to/api/articles/me/published?per_page=${devtoArticlesLimit}`
+          : `https://dev.to/api/articles?username=${devtoUsername}&per_page=${devtoArticlesLimit}`;
+
+        const headers: HeadersInit = devtoApiKey
+          ? {
+              "api-key": devtoApiKey,
+            }
+          : {};
+
+        const response = await fetch(url, { headers });
 
         if (!response.ok) {
           throw new Error(`Failed to fetch articles: ${response.status}`);
@@ -172,7 +185,7 @@ const Blog = () => {
     };
 
     fetchArticles();
-  }, [devtoUsername]);
+  }, []);
 
   const sanitizeArticleHtml = useCallback((html: string) => {
     if (typeof window === "undefined" || !html) return html;
@@ -379,7 +392,7 @@ const Blog = () => {
           </div>
 
           <Dialog open={isModalOpen} onOpenChange={handleModalToggle}>
-            <DialogContent className="max-w-5xl md:max-w-6xl border border-white/10 bg-gradient-to-br from-background/95 via-background/80 to-muted/60 backdrop-blur-lg shadow-[0_20px_80px_-40px_rgba(0,0,0,0.65)] overflow-hidden">
+            <DialogContent className="w-[calc(100vw-1.5rem)] sm:w-[calc(100vw-2.5rem)] max-w-4xl lg:max-w-5xl xl:max-w-6xl border border-white/10 bg-gradient-to-br from-background/95 via-background/80 to-muted/60 backdrop-blur-lg shadow-[0_20px_80px_-40px_rgba(0,0,0,0.65)] overflow-hidden p-4 sm:p-6 lg:p-8">
               <DialogHeader>
                 <DialogTitle className="text-2xl font-bold flex items-start gap-3">
                   <span className="relative inline-flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary shadow-inner shadow-primary/30">
@@ -417,7 +430,7 @@ const Blog = () => {
                 <Separator className="bg-border/60" />
               </div>
 
-              <ScrollArea className="max-h-[60vh] md:max-h-[65vh] pr-4">
+              <ScrollArea className="max-h-[55vh] sm:max-h-[60vh] md:max-h-[65vh] pr-2 sm:pr-4">
                 {articleLoading ? (
                   <div className="space-y-3 animate-pulse">
                     <div className="h-6 w-3/4 rounded bg-muted" />
