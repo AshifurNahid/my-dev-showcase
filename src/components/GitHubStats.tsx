@@ -22,10 +22,13 @@ const GitHubStats = () => {
         const reposResponse = await fetch(
           "https://api.github.com/users/AshifurNahid/repos?per_page=100"
         );
-        const reposData = await reposResponse.json();
+        const reposData = (await reposResponse.json()) as Array<{
+          stargazers_count: number;
+          forks_count: number;
+        }>;
 
-        const totalStars = reposData.reduce((acc: number, repo: any) => acc + repo.stargazers_count, 0);
-        const totalForks = reposData.reduce((acc: number, repo: any) => acc + repo.forks_count, 0);
+        const totalStars = reposData.reduce((acc: number, repo) => acc + repo.stargazers_count, 0);
+        const totalForks = reposData.reduce((acc: number, repo) => acc + repo.forks_count, 0);
 
         setStats({
           totalRepos: userData.public_repos,
