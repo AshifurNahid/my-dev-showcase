@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useState, type SyntheticEvent } from "react";
-import { ExternalLink, Calendar, Heart } from "lucide-react";
+import {
+  ExternalLink,
+  Calendar,
+  Heart,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -139,10 +145,12 @@ const devtoUsername =
   import.meta.env.VITE_DEVTO_USERNAME || "ashifur_nahid_c0cbfcc7105";
 const devtoApiKey = import.meta.env.VITE_DEVTO_API_KEY;
 const devtoArticlesLimit =
-  Number.parseInt(import.meta.env.VITE_DEVTO_ARTICLES_LIMIT || "", 10) || 6;
+  Number.parseInt(import.meta.env.VITE_DEVTO_ARTICLES_LIMIT || "", 10) || 12;
+const articlesPerSlide = 4;
 
 const Blog = () => {
   const [articles, setArticles] = useState<Article[]>([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [activeArticle, setActiveArticle] = useState<Article | null>(null);
@@ -192,6 +200,28 @@ const Blog = () => {
 
     fetchArticles();
   }, []);
+
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [articles.length]);
+
+  const visibleArticles = articles.length <= articlesPerSlide
+    ? articles
+    : Array.from({ length: articlesPerSlide }, (_, i) =>
+        articles[(currentIndex + i) % articles.length]
+      );
+
+  const handleNext = () => {
+    if (articles.length <= articlesPerSlide) return;
+    setCurrentIndex((prev) => (prev + articlesPerSlide) % articles.length);
+  };
+
+  const handlePrevious = () => {
+    if (articles.length <= articlesPerSlide) return;
+    setCurrentIndex((prev) =>
+      (prev - articlesPerSlide + articles.length) % articles.length
+    );
+  };
 
   const sanitizeArticleHtml = useCallback((html: string) => {
     if (typeof window === "undefined" || !html) return html;
@@ -294,13 +324,13 @@ const Blog = () => {
           </div>
 
           {loading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[...Array(6)].map((_, i) => (
-                <Card key={i} className="p-6 space-y-4 animate-pulse">
-                  <div className="h-40 bg-muted rounded"></div>
-                  <div className="h-4 bg-muted rounded w-3/4"></div>
-                  <div className="h-3 bg-muted rounded"></div>
-                  <div className="h-3 bg-muted rounded w-5/6"></div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[...Array(articlesPerSlide)].map((_, i) => (
+                <Card key={i} className="p-4 space-y-3 animate-pulse">
+                  <div className="h-32 bg-muted rounded" />
+                  <div className="h-4 bg-muted rounded w-3/4" />
+                  <div className="h-3 bg-muted rounded" />
+                  <div className="h-3 bg-muted rounded w-5/6" />
                 </Card>
               ))}
             </div>
@@ -319,21 +349,24 @@ const Blog = () => {
               </p>
             </div>
           ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {articles.map((article, index) => {
-                const imageSrc = article.cover_image || articlePlaceholder;
+            <>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {visibleArticles.map((article, index) => {
+                  const imageSrc = article.cover_image || articlePlaceholder;
 
-                return (
-                  <Card
-                    key={article.id}
-                    className={`overflow-hidden hover:shadow-lg transition-all duration-500 hover:-translate-y-1 flex flex-col ${
-                      isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-                    }`}
-                    style={{
-                      transitionDelay: isVisible ? `${index * 100}ms` : '0ms'
-                    }}
-                  >
-                    <div className="aspect-video overflow-hidden bg-muted">
+                  return (
+                    <Card
+                      key={`${article.id}-${index}`}
+                      className={`overflow-hidden hover:shadow-lg transition-all duration-500 hover:-translate-y-1 flex flex-col ${
+                        isVisible
+                          ? "opacity-100 translate-y-0"
+                          : "opacity-0 translate-y-10"
+                      }`}
+                      style={{
+                        transitionDelay: isVisible ? `${index * 80}ms` : "0ms",
+                      }}
+                    >
+                    <div className="aspect-[4/3] overflow-hidden bg-muted">
                       <img
                         src={imageSrc}
                         alt={article.title}
@@ -343,12 +376,12 @@ const Blog = () => {
                       />
                     </div>
 
-                    <div className="p-6 space-y-4 flex-1 flex flex-col">
+                    <div className="p-4 space-y-3 flex-1 flex flex-col">
                       <div className="space-y-2 flex-1">
-                        <h3 className="text-xl font-semibold line-clamp-2 hover:text-primary transition-colors">
+                        <h3 className="text-lg font-semibold line-clamp-2 hover:text-primary transition-colors">
                           {article.title}
                         </h3>
-                        <p className="text-sm text-muted-foreground line-clamp-3">
+                        <p className="text-sm text-muted-foreground line-clamp-2">
                           {article.description}
                         </p>
                       </div>
@@ -363,7 +396,7 @@ const Blog = () => {
                         </div>
                       )}
 
-                      <div className="flex items-center justify-between text-sm text-muted-foreground pt-2 border-t">
+                      <div className="flex items-center justify-between text-xs text-muted-foreground pt-2 border-t">
                         <span className="flex items-center gap-1">
                           <Calendar className="h-4 w-4" />
                           {formatDate(article.published_at)}
@@ -374,8 +407,11 @@ const Blog = () => {
                         </span>
                       </div>
 
-                      <Button asChild className="w-full">
-                        <button className="gap-2" onClick={() => handleArticleOpen(article)}>
+                      <Button asChild className="w-full" size="sm">
+                        <button
+                          className="gap-2"
+                          onClick={() => handleArticleOpen(article)}
+                        >
                           <ExternalLink className="h-4 w-4" />
                           Quick Read ({article.reading_time_minutes} min)
                         </button>
@@ -384,7 +420,31 @@ const Blog = () => {
                   </Card>
                 );
               })}
-            </div>
+              </div>
+
+              {articles.length > articlesPerSlide && (
+                <div className="flex items-center justify-end gap-3 pt-4">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-9 w-9"
+                    onClick={handlePrevious}
+                    aria-label="Show previous articles"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="h-9 w-9"
+                    onClick={handleNext}
+                    aria-label="Show next articles"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
+            </>
           )}
 
           <div className="text-center pt-8">
