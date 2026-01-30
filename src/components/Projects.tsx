@@ -36,7 +36,7 @@ const projects: Project[] = [
     impact: "Streamlined course discovery, real-time availability, and automated booking confirmation",
     tech: ["C#", ".NET", "NextJs", "Mysql", "TailwindCSS"],
     codeUrl: "https://github.com/AshifurNahid/driving-school-backend",
-    liveUrl: "https://driving-school-frontend-phi.vercel.app/",
+    liveUrl: "https://fasttrackdrivers.netlify.app/",
     image: drivingSchoolImage,
   },
   {
