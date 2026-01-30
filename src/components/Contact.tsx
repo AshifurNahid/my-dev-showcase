@@ -57,11 +57,11 @@ const Contact = () => {
         <div className="max-w-5xl mx-auto space-y-12">
           <div className="text-center space-y-4 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold">
-              Get In <span className="text-gradient-primary">Touch</span>
+              Let's <span className="text-gradient-primary">Connect</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Have a project in mind or want to collaborate? I'd love to hear from you.
-              Let's build something amazing together!
+              Whether you have a fintech project, need backend engineering expertise, or just want to discuss 
+              software architecture and system design, I'd be happy to connect with you.
             </p>
           </div>
 
@@ -148,12 +148,25 @@ const Contact = () => {
               </Card>
 
               <Card className="p-6 md:p-8 bg-gradient-to-br from-primary/5 to-accent/5 border-primary/20">
-                <h3 className="text-xl font-semibold mb-3">Open to Opportunities</h3>
-                <p className="text-muted-foreground">
-                  I'm currently open to freelance projects, full-time positions, and interesting
-                  collaborations. If you think I'd be a good fit for your team or project,
-                  let's connect!
+                <h3 className="text-xl font-semibold mb-3">Looking for Opportunities</h3>
+                <p className="text-muted-foreground mb-4">
+                  Open to full-time backend engineering roles, fintech projects, and technical consulting. 
+                  Specialized in Java/Spring Boot microservices, system design, and building scalable banking solutions.
                 </p>
+                <div className="flex gap-3 flex-wrap">
+                  <Button size="sm" asChild variant="outline">
+                    <a href="https://www.linkedin.com/in/ashifurnahid/" target="_blank" rel="noopener noreferrer">
+                      <Linkedin className="h-4 w-4 mr-2" />
+                      LinkedIn
+                    </a>
+                  </Button>
+                  <Button size="sm" asChild variant="outline">
+                    <a href="https://github.com/AshifurNahid" target="_blank" rel="noopener noreferrer">
+                      <Github className="h-4 w-4 mr-2" />
+                      GitHub
+                    </a>
+                  </Button>
+                </div>
               </Card>
             </div>
           </div>

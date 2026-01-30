@@ -11,6 +11,7 @@ import ecommerceImage from "@/assets/ecommerce-platform.svg";
 interface Project {
   title: string;
   description: string;
+  impact?: string;
   tech: string[];
   codeUrl: string;
   liveUrl?: string;
@@ -20,8 +21,9 @@ interface Project {
 const projects: Project[] = [
   {
     title: "CRM Application",
-    description:
-      "Full-featured sales and marketing hub with real-time analytics, lead routing, and campaign management dashboards.",
+    description: 
+      "Enterprise-grade Customer Relationship Management system built with Spring Boot and React.",
+    impact: "Real-time analytics, lead scoring, and automated campaign workflows",
     tech: [ "Java", "Spring Boot", "Postgres", "React", "Next.js"],
     codeUrl: "https://github.com/AshifurNahid/CRM",
     liveUrl: "https://crm-frontend-taupe.vercel.app/",
@@ -30,7 +32,8 @@ const projects: Project[] = [
   {
     title: "Driving School Platform",
     description:
-      "Scheduling and enrollment experience for driving schools, featuring course discovery, instructor profiles, and online booking.",
+      "Complete scheduling and enrollment management system for driving schools with instructor coordination.",
+    impact: "Streamlined course discovery, real-time availability, and automated booking confirmation",
     tech: ["C#", ".NET", "NextJs", "Mysql", "TailwindCSS"],
     codeUrl: "https://github.com/AshifurNahid/driving-school-backend",
     liveUrl: "https://driving-school-frontend-phi.vercel.app/",
@@ -39,7 +42,8 @@ const projects: Project[] = [
   {
     title: "Ecommerce Microservice",
     description:
-      "Scalable microservices-based e-commerce platform built with Spring Boot, Spring Cloud, Kafka, and Docker, following event-driven architecture and modern distributed patterns.",
+      "Highly scalable event-driven microservices architecture with Spring Boot, Spring Cloud, and Kafka.",
+    impact: "Handles concurrent transactions with asynchronous order processing and distributed system resilience",
     tech: ["Spring Boot", "Microservice", "Postgres", "Kafka", "Spring Security"],
     codeUrl: "https://github.com/AshifurNahid/Ecommerce-Microservice",
     image: ecommerceImage,
@@ -63,8 +67,8 @@ const Projects = () => {
               Featured <span className="text-gradient-primary">Projects</span>
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A curated look at the platforms I am most proud of. These projects
-              highlight my focus on user experience, reliability, and clear product outcomes.
+              Showcase of production-ready applications demonstrating backend architecture, system design, 
+              and full-stack development capabilities. Each project reflects my commitment to clean code, scalability, and real-world problem solving.
             </p>
           </div>
 
@@ -95,6 +99,11 @@ const Projects = () => {
                     <p className="text-sm text-muted-foreground">
                       {project.description}
                     </p>
+                    {project.impact && (
+                      <p className="text-xs text-primary/80 font-medium pt-2 border-t border-border/50 mt-2 pt-3">
+                        ✓ {project.impact}
+                      </p>
+                    )}
                   </div>
 
                   <div className="flex flex-wrap gap-2">

@@ -5,11 +5,27 @@ const Experience = () => {
   const experiences = [
     {
       type: "work",
+      title: "Software Engineer",
+      organization: "RedDot Digital Limited · Remote",
+      period: "Jan 2025 – Present",
+      description:
+        "Backend Developer working on MFS (Mobile Financial Services) platform. Developing backend services for digital payment processing, cash transfers, and merchant payment systems while building scalable REST APIs and microservices for mobile financial transactions.",
+      technologies: [
+        "Java",
+        "Spring Boot",
+        "Microservices",
+        "REST APIs",
+        "PostgreSQL",
+        "Docker",
+      ],
+    },
+    {
+      type: "work",
       title: "Associate Software Engineer",
       organization: "Sonali Intellect Limited · Dhaka, Bangladesh · On-site",
       period: "Oct 2024 – Present",
       description:
-        "Building enterprise-scale FinTech systems for national banking operations, optimizing BEFTN and RTGS flows, and delivering resilient core banking enhancements that improve throughput, stability, and reconciliation accuracy.",
+        "Building enterprise-scale FinTech systems for mission-critical national banking operations. Optimizing BEFTN and RTGS transaction flows within microservice architectures. Delivering resilient core banking enhancements that improve throughput by optimizing request handling, enhance system stability through robust error handling, and ensure reconciliation accuracy in real-time financial systems processing millions of daily transactions.",
       technologies: [
         "Java",
         "Spring Boot",
@@ -27,7 +43,7 @@ const Experience = () => {
       organization: "Artics Inc. (USA) · Remote",
       period: "Dec 2023 – Jul 2024",
       description:
-        "Delivered a full doctor appointment and scheduling platform end to end, building secure REST APIs, role-based authentication, and scalable booking logic while coordinating with distributed PM and QA teams across time zones.",
+        "Delivered a full-featured doctor appointment and scheduling platform end-to-end. Architected secure REST APIs with role-based access control and authentication. Implemented scalable booking logic supporting complex scheduling workflows. Coordinated seamlessly with distributed PM and QA teams across multiple time zones, ensuring timely delivery of production-ready features.",
       technologies: ["Java", "Spring Boot", "Spring Security", "MySQL", "React/Next.js", "Docker", "Git"],
     },
     {
@@ -36,7 +52,7 @@ const Experience = () => {
       organization: "Dynamic Solution Innovators Ltd. (DSI) · Dhaka, Bangladesh · On-site",
       period: "Sep 2023 – Oct 2023",
       description:
-        "Built a second-hand product resale platform with Spring Boot APIs, gaining hands-on experience with debugging, deployment workflows, and agile teamwork in a fast-paced environment.",
+        "Developed a second-hand product resale platform with Spring Boot backend services. Gained hands-on experience with full development lifecycle including debugging production issues, managing deployment workflows, and collaborating in agile team environments. Contributed to codebase improvements and learned best practices in backend development.",
       technologies: ["Java", "Spring Boot", "MySQL", "REST", "Git"],
     },
     {

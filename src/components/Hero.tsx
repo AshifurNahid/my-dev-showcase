@@ -53,12 +53,13 @@ const Hero = () => {
                 <span className="text-gradient-primary">Ashifur Nahid</span>
               </h1>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-semibold bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                Software Engineer 
+                Backend Software Engineer
               </h2>
+              <p className="text-sm md:text-base text-primary font-semibold">FinTech • Microservices • System Design</p>
             </div>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            A lifelong learner with a passion for building high-scale, resilient systems that serve millions of users. I build robust systems where technical excellence meets business value.
+            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Backend Software Engineer specializing in <span className="text-foreground font-semibold">high-scale fintech systems</span> and microservices architecture. I build <span className="text-foreground font-semibold">production-grade solutions</span> that handle millions of transactions with resilience and reliability.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
@@ -67,7 +68,7 @@ const Hero = () => {
                 onClick={() => scrollToSection("#projects")}
                 className="gap-2 shadow-lg hover:shadow-glow transition-all hover:scale-105"
               >
-                View My Work
+                Explore Projects
               </Button>
               <Button
                 size="lg"
@@ -75,7 +76,7 @@ const Hero = () => {
                 onClick={() => scrollToSection("#contact")}
                 className="hover:scale-105 transition-transform"
               >
-                Get In Touch
+                Let's Connect
               </Button>
               <Button
                 size="lg"
@@ -94,6 +95,26 @@ const Hero = () => {
                   Download Resume
                 </a>
               </Button>
+            </div>
+
+            {/* Key Metrics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-8">
+              <div className="p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border">
+                <p className="text-2xl md:text-3xl font-bold text-primary">16+</p>
+                <p className="text-xs md:text-sm text-muted-foreground mt-1">Months Experience</p>
+              </div>
+              <div className="p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border">
+                <p className="text-2xl md:text-3xl font-bold text-primary">5+</p>
+                <p className="text-xs md:text-sm text-muted-foreground mt-1">Projects Built</p>
+              </div>
+              <div className="p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border">
+                <p className="text-2xl md:text-3xl font-bold text-primary">Java</p>
+                <p className="text-xs md:text-sm text-muted-foreground mt-1">Primary Language</p>
+              </div>
+              <div className="p-4 rounded-lg bg-card/50 backdrop-blur-sm border border-border">
+                <p className="text-2xl md:text-3xl font-bold text-primary">FinTech</p>
+                <p className="text-xs md:text-sm text-muted-foreground mt-1">Core Expertise</p>
+              </div>
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 pt-6">

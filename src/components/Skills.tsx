@@ -125,8 +125,24 @@ const Skills = () => {
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Technical expertise built through hands-on experience in fintech and enterprise systems
+              Specialized in backend engineering with deep expertise in fintech systems, microservices, and high-performance database optimization
             </p>
+          </div>
+
+          {/* Quick Summary Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <Card className="border border-border/50 bg-card/50 backdrop-blur-sm p-4 text-center hover:border-primary/50 transition-all">
+              <p className="text-sm text-muted-foreground mb-2">Primary Language</p>
+              <p className="font-bold text-lg text-primary">Java</p>
+            </Card>
+            <Card className="border border-border/50 bg-card/50 backdrop-blur-sm p-4 text-center hover:border-primary/50 transition-all">
+              <p className="text-sm text-muted-foreground mb-2">Core Framework</p>
+              <p className="font-bold text-lg text-primary">Spring Boot</p>
+            </Card>
+            <Card className="border border-border/50 bg-card/50 backdrop-blur-sm p-4 text-center hover:border-primary/50 transition-all">
+              <p className="text-sm text-muted-foreground mb-2">Specialty</p>
+              <p className="font-bold text-lg text-primary">Fintech Systems</p>
+            </Card>
           </div>
 
           {/* Skills Grid */}

@@ -20,10 +20,8 @@ const Navbar = () => {
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
     { href: "#skills", label: "Skills" },
-    { href: "#competitive-programming", label: "CP Journey" },
     { href: "#projects", label: "Projects" },
     { href: "#experience", label: "Experience" },
-    { href: "#blog", label: "Blog" },
     { href: "#contact", label: "Contact" },
   ];
 
@@ -49,7 +47,7 @@ const Navbar = () => {
             onClick={(e) => scrollToSection(e, "#home")}
             className="text-xl font-bold text-gradient-primary"
           >
-            Portfolio
+            Ashifur Nahid
           </a>
 
           {/* Desktop Navigation */}

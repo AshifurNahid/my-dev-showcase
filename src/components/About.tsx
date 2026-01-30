@@ -65,21 +65,19 @@ const About = () => {
                   
                   <div className="space-y-4 text-base md:text-lg text-muted-foreground leading-relaxed pl-0 md:pl-14">
                     <p className="relative before:absolute before:left-0 before:top-2 before:w-1 before:h-1 before:bg-primary before:rounded-full before:-ml-4 md:before:block before:hidden">
-                      I am Ashifur Nahid, a dedicated Software Engineer working in the fintech domain at Sonali Intellect Limited,
-                      where I contribute to building secure, reliable, and large-scale banking solutions used across nationwide
-                      financial systems.
+                      I'm a dedicated Backend Software Engineer specializing in <strong className="text-foreground">fintech systems</strong>. Currently working at 
+                      <strong className="text-foreground"> RedDot Digital Limited</strong> as a Backend Developer on the MFS platform, building secure, reliable, 
+                      and production-grade solutions that process millions of financial transactions daily across mobile financial services infrastructure.
                     </p>
                     <p className="relative before:absolute before:left-0 before:top-2 before:w-1 before:h-1 before:bg-primary before:rounded-full before:-ml-4 md:before:block before:hidden">
-                      At Sonali Intellect, I work on mission-critical modules such as ATM middleware, RTGS in a microservice-based
-                      architecture, BEFTN processing, and Core Banking System (CBS) integrations. I am involved in developing and
-                      maintaining services that handle real-time financial transactions, interbank communication, account posting
-                      flows, and automated backend processing. My work spans request validation, transaction life cycles, API
-                      communication, and ensuring high-integrity data processing within regulated banking environments.
+                      At <strong className="text-foreground">Sonali Intellect Limited</strong>, I architected and maintained <strong className="text-foreground">mission-critical microservices</strong> handling 
+                      ATM middleware, RTGS/BEFTN processing, and Core Banking System (CBS) integrations. My focus is on building <strong className="text-foreground">fault-tolerant, high-throughput systems</strong> 
+                      that ensure transaction integrity in regulated banking environments while meeting strict SLA requirements.
                     </p>
                     <p className="relative before:absolute before:left-0 before:top-2 before:w-1 before:h-1 before:bg-primary before:rounded-full before:-ml-4 md:before:block before:hidden">
-                      I regularly collaborate with cross-functional teams to investigate issues, enhance system reliability, and
-                      improve transaction workflows. I have hands-on experience in debugging production cases, analyzing logs,
-                      understanding CBS behavior, and ensuring smooth end-to-end execution of payment operations.
+                      My expertise spans <strong className="text-foreground">microservices architecture, REST API design, database optimization, and event-driven systems</strong>. 
+                      I excel at <strong className="text-foreground">production debugging, system optimization, and cross-functional collaboration</strong> to enhance reliability 
+                      and streamline payment workflows. I'm passionate about writing clean, maintainable code and continuously learning modern backend engineering practices.
                     </p>
                   </div>
                 </div>
