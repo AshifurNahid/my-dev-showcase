@@ -2,7 +2,7 @@
 
 A modern, responsive portfolio website showcasing backend engineering expertise in fintech systems, microservices architecture, and full-stack development.
 
-**Live:** [ashifurnahid.vercel.app](https://ashifurnahid.vercel.app)
+
 
 ---
 
